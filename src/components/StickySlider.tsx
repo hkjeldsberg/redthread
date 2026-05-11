@@ -1,0 +1,101 @@
+'use client'
+
+import { AnimatePresence, motion } from 'motion/react'
+import { getPhase, phaseInfo } from '@/lib/cycle'
+import { useApp } from './AppShell'
+
+export default function StickySlider() {
+  const { slider, previewDay, setPreviewDay } = useApp()
+
+  return (
+    <AnimatePresence initial={false}>
+      {slider && (
+        <motion.div
+          key="sticky-slider"
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          className="overflow-hidden border-t border-outline-variant/20"
+        >
+          <Inner
+            previewDay={previewDay}
+            setPreviewDay={setPreviewDay}
+            cycleLength={slider.cycleLength}
+            periodLength={slider.periodLength}
+            actualDay={slider.actualDay}
+          />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
+function Inner({
+  previewDay,
+  setPreviewDay,
+  cycleLength,
+  periodLength,
+  actualDay,
+}: {
+  previewDay: number
+  setPreviewDay: (d: number) => void
+  cycleLength: number
+  periodLength: number
+  actualDay: number
+}) {
+  const clampedActual = Math.min(actualDay, cycleLength)
+  const fase = getPhase(previewDay, periodLength, cycleLength)
+  const info = phaseInfo[fase]
+  const progressPct = (previewDay / cycleLength) * 100
+  const isToday = previewDay === clampedActual
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3 sm:gap-4">
+      <div className="hidden sm:flex items-center gap-2 shrink-0">
+        <span className="w-2 h-2 rounded-full bg-primary" />
+        <span className={`text-sm font-semibold ${info.color} tracking-tight`}>{info.label}</span>
+      </div>
+      <span className="sm:hidden w-2 h-2 rounded-full bg-primary shrink-0" />
+
+      <div className="flex-1 relative">
+        <div className="h-1.5 w-full bg-surface-container-highest rounded-full relative">
+          <motion.div
+            className="absolute left-0 top-0 h-full bg-primary/40 rounded-full"
+            animate={{ width: `${progressPct}%` }}
+            transition={{ type: 'spring', stiffness: 200, damping: 30 }}
+          />
+          <motion.div
+            className="absolute top-1/2 w-3.5 h-3.5 bg-primary rounded-full border-2 border-surface shadow"
+            animate={{ left: `calc(${progressPct}% - 7px)`, y: '-50%' }}
+            transition={{ type: 'spring', stiffness: 200, damping: 30 }}
+          />
+        </div>
+        <input
+          type="range"
+          min={1}
+          max={cycleLength}
+          value={previewDay}
+          onChange={e => setPreviewDay(Number(e.target.value))}
+          aria-label="Velg dag i syklus"
+          className="absolute inset-0 w-full opacity-0 cursor-pointer h-6 -top-2"
+        />
+      </div>
+
+      <div className="flex items-center gap-2 shrink-0">
+        <span className="text-sm font-semibold text-on-surface tabular-nums">
+          <span className="hidden sm:inline">Dag </span>{previewDay}
+        </span>
+        <span className="text-xs text-on-surface-variant/60 tabular-nums">/ {cycleLength}</span>
+        {!isToday && (
+          <button
+            onClick={() => setPreviewDay(clampedActual)}
+            className="ml-1 text-xs text-primary hover:text-primary-container underline underline-offset-2"
+          >
+            I dag
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}

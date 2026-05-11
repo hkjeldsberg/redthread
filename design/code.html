@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="no"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rød tråd - Oversikt</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+        }
+        .red-thread-line {
+            height: 1.5px;
+            background-color: #923528; /* Deep Terracotta */
+            opacity: 0.6;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#484744",
+                        "on-surface-variant": "#56423f",
+                        "on-secondary-fixed": "#1c1c19",
+                        "surface-container-highest": "#e5e2de",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1c1c1a",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#e6e2de",
+                        "surface-container-high": "#eae8e4",
+                        "tertiary-container": "#6d6c6c",
+                        "on-tertiary-container": "#f1eeee",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#f3f0ec",
+                        "surface-variant": "#e5e2de",
+                        "secondary-fixed-dim": "#c9c6c2",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#e4e2e1",
+                        "surface-container": "#f0ede9",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#c8c6c6",
+                        "primary-fixed": "#ffdad4",
+                        "inverse-primary": "#ffb4a8",
+                        "outline-variant": "#ddc0bb",
+                        "inverse-surface": "#31302e",
+                        "on-primary-fixed-variant": "#81281c",
+                        "primary-container": "#b24c3d",
+                        "on-primary-container": "#ffeae6",
+                        "on-secondary-container": "#666461",
+                        "primary-fixed-dim": "#ffb4a8",
+                        "on-primary-fixed": "#410100",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#a03f31",
+                        "primary": "#923528",
+                        "surface-dim": "#dcdad6",
+                        "secondary-container": "#e6e2de",
+                        "surface-bright": "#fcf9f5",
+                        "outline": "#89726e",
+                        "on-background": "#1c1c1a",
+                        "tertiary": "#545454",
+                        "secondary": "#605e5b",
+                        "on-secondary": "#ffffff",
+                        "surface": "#fcf9f5",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "surface-container-low": "#f6f3ef",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "background": "#fcf9f5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "container-padding-desktop": "64px",
+                        "stack-md": "24px",
+                        "unit": "8px",
+                        "stack-lg": "48px",
+                        "container-padding-mobile": "24px",
+                        "gutter": "16px"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl border-b border-outline-variant/20">
+<div class="flex justify-between items-center w-full px-container-padding-mobile py-4">
+<span class="material-symbols-outlined text-primary cursor-pointer">menu</span>
+<h1 class="font-medium text-headline-md text-primary tracking-tight">Oversikt</h1>
+<span class="material-symbols-outlined text-primary cursor-pointer">account_circle</span>
+</div>
+</header>
+<main class="pt-24 px-container-padding-mobile space-y-stack-lg max-w-2xl mx-auto">
+<!-- Cycle Phase Card -->
+<section class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/10">
+<div class="flex justify-between items-start mb-2">
+<span class="text-label-md uppercase tracking-wider text-on-surface-variant/70">DAG 10 AV 28</span>
+</div>
+<h2 class="text-headline-lg font-semibold text-primary mb-3">Follikulær fase</h2>
+<p class="text-body-md text-on-surface-variant leading-relaxed mb-6">
+                Østrogen stiger og forbereder kroppen for eggløsning. Energinivået øker gradvis.
+            </p>
+<!-- Progress Slider -->
+<div class="relative pt-4 pb-2">
+<div class="flex justify-between text-caption text-on-surface-variant/60 mb-2">
+<span>1</span>
+<span class="font-bold text-on-surface">Dag 10</span>
+<span>28</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden relative">
+<div class="absolute left-0 top-0 h-full bg-primary/40 w-[35.7%]"></div>
+<!-- The Red Thread marker -->
+<div class="absolute left-[35.7%] top-1/2 -translate-y-1/2 w-4 h-4 bg-primary rounded-full shadow-lg border-2 border-surface"></div>
+</div>
+</div>
+</section>
+<!-- Insights / Recommendations Header -->
+<div class="flex items-center gap-4">
+<div class="red-thread-line flex-grow"></div>
+<span class="text-label-md font-bold text-primary/60 tracking-widest uppercase">Daglige Anbefalinger</span>
+<div class="red-thread-line w-12"></div>
+</div>
+<!-- Recommendation Cards -->
+<div class="space-y-stack-md">
+<!-- Training Card -->
+<article class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-6 transition-all hover:bg-surface-bright">
+<div class="flex justify-between items-center mb-4">
+<span class="text-caption font-bold text-on-surface-variant/60 tracking-widest uppercase">TRENING</span>
+<span class="bg-surface-container-high px-3 py-1 rounded-full text-caption font-semibold text-on-surface-variant">Moderat–høy</span>
+</div>
+<h3 class="text-headline-md font-semibold text-on-surface mb-2">Bygg styrke</h3>
+<p class="text-body-md text-on-surface-variant mb-4">
+                    Stigende østrogen gir bedre smertetoleranse og kraftutvikling. Ideelt for tung styrketrening og HIIT.
+                </p>
+<ul class="grid grid-cols-2 gap-y-2">
+<li class="flex items-center gap-2 text-body-md text-on-surface">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Tung styrketrening
+                    </li>
+<li class="flex items-center gap-2 text-body-md text-on-surface">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> HIIT
+                    </li>
+<li class="flex items-center gap-2 text-body-md text-on-surface">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Løping
+                    </li>
+<li class="flex items-center gap-2 text-body-md text-on-surface">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Crossfit
+                    </li>
+</ul>
+</article>
+<!-- Food Card -->
+<article class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-6 transition-all hover:bg-surface-bright">
+<div class="flex justify-between items-center mb-4">
+<span class="text-caption font-bold text-on-surface-variant/60 tracking-widest uppercase">MAT</span>
+<span class="bg-surface-container-high px-3 py-1 rounded-full text-caption font-semibold text-on-surface-variant">Karbohydrater</span>
+</div>
+<h3 class="text-headline-md font-semibold text-on-surface mb-2">Komplekse karbohydrater</h3>
+<p class="text-body-md text-on-surface-variant mb-4">
+                    Fyll opp glykogenlagrene til de harde øktene. Østrogen forbedrer insulinfølsomheten.
+                </p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface px-3 py-1 rounded-lg text-caption border border-outline-variant/10">Havregrøt</span>
+<span class="bg-surface px-3 py-1 rounded-lg text-caption border border-outline-variant/10">Quinoa / brun ris</span>
+<span class="bg-surface px-3 py-1 rounded-lg text-caption border border-outline-variant/10">Søtpotet</span>
+<span class="bg-surface px-3 py-1 rounded-lg text-caption border border-outline-variant/10">Egg</span>
+<span class="bg-surface px-3 py-1 rounded-lg text-caption border border-outline-variant/10">Grønnsaker</span>
+<span class="bg-surface px-3 py-1 rounded-lg text-caption border border-outline-variant/10">Bær og frukt</span>
+</div>
+</article>
+<!-- Fasting Card -->
+<article class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-6 transition-all hover:bg-surface-bright">
+<div class="flex justify-between items-center mb-4">
+<span class="text-caption font-bold text-on-surface-variant/60 tracking-widest uppercase">FASTE</span>
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-caption font-semibold">Anbefalt</span>
+</div>
+<h3 class="text-headline-md font-semibold text-on-surface mb-2">Gunstig for intermittent faste</h3>
+<p class="text-body-md text-on-surface-variant">
+                    Kroppen tåler stress bedre i denne fasen. 12-16 timers faste er trygt og kan støtte fettforbrenning.
+                </p>
+</article>
+</div>
+<!-- Calendar Section -->
+<section class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/10 overflow-hidden">
+<h3 class="text-label-md font-bold text-on-surface-variant/60 tracking-widest uppercase mb-6">FORUTSAGTE PERIODER</h3>
+<div class="space-y-6">
+<div>
+<h4 class="text-body-md font-semibold text-on-surface mb-4">Mai 2026</h4>
+<div class="grid grid-cols-7 gap-2 text-center text-caption font-medium text-on-surface-variant/40 mb-2">
+<span>Ma</span><span>Ti</span><span>On</span><span>To</span><span>Fr</span><span>Lø</span><span>Sø</span>
+</div>
+<div class="grid grid-cols-7 gap-1 text-center">
+<!-- Dates placeholder for context -->
+<span class="p-2"></span><span class="p-2"></span><span class="p-2"></span><span class="p-2"></span><span class="p-2 text-primary font-bold">1</span><span class="p-2 text-primary font-bold">2</span><span class="p-2 text-primary font-bold">3</span>
+<span class="p-2 text-primary font-bold">4</span><span class="p-2 text-primary font-bold">5</span><span class="p-2 text-primary font-bold">6</span><span class="p-2">7</span><span class="p-2">8</span><span class="p-2">9</span><span class="p-2">10</span>
+<div class="p-2 border-2 border-on-surface rounded-full flex items-center justify-center font-bold">11</div><span class="p-2">12</span><span class="p-2">13</span><span class="p-2">14</span><span class="p-2">15</span><span class="p-2">16</span><span class="p-2">17</span>
+<span class="p-2">18</span><span class="p-2">19</span><span class="p-2">20</span><span class="p-2">21</span><span class="p-2">22</span><span class="p-2">23</span><span class="p-2">24</span>
+<span class="p-2">25</span><span class="p-2">26</span><span class="p-2">27</span><span class="p-2">28</span><span class="p-2">29</span><span class="p-2 text-primary font-bold">30</span><span class="p-2 text-primary font-bold">31</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center py-4 pb-8 px-container-padding-mobile bg-surface/90 dark:bg-surface-dim/90 backdrop-blur-2xl border-t border-outline-variant/10 z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-primary relative after:content-[''] after:absolute after:-bottom-2 after:w-1 after:h-1 after:bg-primary after:rounded-full" href="#">
+<span class="material-symbols-outlined mb-1">home_health</span>
+<span class="text-label-md">Oversikt</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined mb-1">cycle</span>
+<span class="text-label-md">Syklus</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="text-label-md">Profil</span>
+</a>
+</nav>
+<!-- Decorative thread background accent -->
+<div class="fixed top-0 right-0 w-32 h-screen pointer-events-none overflow-hidden opacity-5">
+<svg class="h-full w-full" preserveaspectratio="none" viewbox="0 0 100 1000">
+<path d="M10,0 Q50,250 10,500 T10,1000" fill="none" stroke="#923528" stroke-width="0.5"></path>
+</svg>
+</div>
+</body></html>
