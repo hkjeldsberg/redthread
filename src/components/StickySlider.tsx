@@ -52,8 +52,8 @@ function Inner({
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3 sm:gap-4">
-      <div className="hidden sm:flex items-center gap-2 shrink-0">
-        <span className="w-2 h-2 rounded-full bg-primary" />
+      <div className="hidden sm:flex items-center gap-2 shrink-0 w-36">
+        <span className="w-2 h-2 rounded-full bg-primary shrink-0" />
         <span className={`text-sm font-semibold ${info.color} tracking-tight`}>{info.label}</span>
       </div>
       <span className="sm:hidden w-2 h-2 rounded-full bg-primary shrink-0" />
@@ -66,8 +66,8 @@ function Inner({
             transition={{ type: 'spring', stiffness: 200, damping: 30 }}
           />
           <motion.div
-            className="absolute top-1/2 w-3.5 h-3.5 bg-primary rounded-full border-2 border-surface shadow"
-            animate={{ left: `calc(${progressPct}% - 7px)`, y: '-50%' }}
+            className="absolute top-1/2 w-5 h-5 bg-primary rounded-full border-2 border-surface shadow-md"
+            animate={{ left: `calc(${progressPct}% - 10px)`, y: '-50%' }}
             transition={{ type: 'spring', stiffness: 200, damping: 30 }}
           />
         </div>
@@ -78,7 +78,7 @@ function Inner({
           value={previewDay}
           onChange={e => setPreviewDay(Number(e.target.value))}
           aria-label="Velg dag i syklus"
-          className="absolute inset-0 w-full opacity-0 cursor-pointer h-6 -top-2"
+          className="absolute inset-0 w-full opacity-0 cursor-pointer h-10 -top-4 touch-none"
         />
       </div>
 
@@ -87,14 +87,13 @@ function Inner({
           <span className="hidden sm:inline">Dag </span>{previewDay}
         </span>
         <span className="text-xs text-on-surface-variant/60 tabular-nums">/ {cycleLength}</span>
-        {!isToday && (
-          <button
-            onClick={() => setPreviewDay(clampedActual)}
-            className="ml-1 text-xs text-primary hover:text-primary-container underline underline-offset-2"
-          >
-            I dag
-          </button>
-        )}
+        <button
+          onClick={() => setPreviewDay(clampedActual)}
+          aria-hidden={isToday}
+          className={`ml-1 text-xs text-primary hover:text-primary-container underline underline-offset-2 transition-opacity duration-150 ${isToday ? 'invisible pointer-events-none' : 'visible'}`}
+        >
+          I dag
+        </button>
       </div>
     </div>
   )
