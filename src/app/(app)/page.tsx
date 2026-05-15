@@ -56,6 +56,7 @@ export default async function DashboardPage() {
 
   return (
     <DashboardClient
+      cycleId={sisteSyklus.id}
       startDate={sisteSyklus.start_date}
       cycleLength={effectiveCycleLength}
       periodLength={periodLength}

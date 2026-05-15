@@ -1,33 +1,48 @@
 'use client'
 
+import { useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { getPhase, phaseInfo } from '@/lib/cycle'
 import { useApp } from './AppShell'
+import SymptomSheet from './SymptomSheet'
 
 export default function StickySlider() {
   const { slider, previewDay, setPreviewDay } = useApp()
+  const [sheetOpen, setSheetOpen] = useState(false)
 
   return (
-    <AnimatePresence initial={false}>
+    <>
+      <AnimatePresence initial={false}>
+        {slider && (
+          <motion.div
+            key="sticky-slider"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-t border-outline-variant/20"
+          >
+            <Inner
+              previewDay={previewDay}
+              setPreviewDay={setPreviewDay}
+              cycleLength={slider.cycleLength}
+              periodLength={slider.periodLength}
+              actualDay={slider.actualDay}
+              onOpenSymptoms={() => setSheetOpen(true)}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {slider && (
-        <motion.div
-          key="sticky-slider"
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="overflow-hidden border-t border-outline-variant/20"
-        >
-          <Inner
-            previewDay={previewDay}
-            setPreviewDay={setPreviewDay}
-            cycleLength={slider.cycleLength}
-            periodLength={slider.periodLength}
-            actualDay={slider.actualDay}
-          />
-        </motion.div>
+        <SymptomSheet
+          open={sheetOpen}
+          onClose={() => setSheetOpen(false)}
+          cycleId={slider.cycleId}
+          cycleDay={previewDay}
+        />
       )}
-    </AnimatePresence>
+    </>
   )
 }
 
@@ -37,12 +52,14 @@ function Inner({
   cycleLength,
   periodLength,
   actualDay,
+  onOpenSymptoms,
 }: {
   previewDay: number
   setPreviewDay: (d: number) => void
   cycleLength: number
   periodLength: number
   actualDay: number
+  onOpenSymptoms: () => void
 }) {
   const clampedActual = Math.min(actualDay, cycleLength)
   const fase = getPhase(previewDay, periodLength, cycleLength)
@@ -95,6 +112,19 @@ function Inner({
           I dag
         </button>
       </div>
+
+      {/* Symptom button */}
+      <button
+        onClick={onOpenSymptoms}
+        aria-label="Logg symptomer for denne dagen"
+        title="Logg symptomer"
+        className="shrink-0 flex items-center gap-1.5 text-xs font-medium text-on-surface-variant hover:text-on-surface border border-outline-variant/50 hover:border-outline-variant rounded-full px-2.5 py-1 transition-colors"
+      >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+        <span className="hidden sm:inline">Symptom</span>
+      </button>
     </div>
   )
 }

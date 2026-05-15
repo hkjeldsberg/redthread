@@ -90,6 +90,7 @@ function CalendarMonth({
 }
 
 interface Props {
+  cycleId: string
   startDate: string
   cycleLength: number
   periodLength: number
@@ -98,13 +99,13 @@ interface Props {
   profileCycleLength: number
 }
 
-export default function DashboardClient({ startDate, cycleLength, periodLength, actualDay, learnedFromCycles, profileCycleLength }: Props) {
+export default function DashboardClient({ cycleId, startDate, cycleLength, periodLength, actualDay, learnedFromCycles, profileCycleLength }: Props) {
   const clampedActual = Math.min(actualDay, cycleLength)
   const { detaljer, previewDay, setPreviewDay, setSlider } = useApp()
 
   useEffect(() => {
     setPreviewDay(clampedActual)
-    setSlider({ startDate, cycleLength, periodLength, actualDay })
+    setSlider({ cycleId, startDate, cycleLength, periodLength, actualDay })
     return () => setSlider(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, cycleLength, periodLength, actualDay])

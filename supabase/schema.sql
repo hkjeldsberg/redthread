@@ -36,6 +36,23 @@ create policy "Users can manage own cycles"
   using (auth.uid() = user_id)
   with check (auth.uid() = user_id);
 
+create table if not exists mens.symptom_logs (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users on delete cascade not null,
+  cycle_id uuid references mens.cycles(id) on delete cascade not null,
+  cycle_day int not null,
+  symptom text not null,
+  created_at timestamptz default now(),
+  unique(user_id, cycle_id, cycle_day, symptom)
+);
+
+alter table mens.symptom_logs enable row level security;
+
+create policy "Users can manage own symptom_logs"
+  on mens.symptom_logs for all
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
+
 -- Grants
 grant usage on schema mens to anon, authenticated;
 grant all on all tables in schema mens to authenticated;

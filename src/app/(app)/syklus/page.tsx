@@ -14,13 +14,22 @@ function varighetDager(start: string, slutt: string | null): string {
   return `${d} dag${d !== 1 ? 'er' : ''}`
 }
 
+const iDagStr = () => new Date().toISOString().split('T')[0]
+
 export default function SyklusPage() {
   const [sykluser, setSykluser] = useState<Cycle[]>([])
   const [laster, setLaster] = useState(true)
   const [lagrer, setLagrer] = useState(false)
   const [sletter, setSletter] = useState<string | null>(null)
   const [feil, setFeil] = useState<string | null>(null)
-  const [valgtDato, setValgtDato] = useState(new Date().toISOString().split('T')[0])
+
+  // Form state for new/historical entry
+  const [startDato, setStartDato] = useState(iDagStr())
+  const [sluttDato, setSluttDato] = useState('')
+  const [pågår, setPågår] = useState(true)
+
+  // End-date for active cycle
+  const [avsluttDato, setAvsluttDato] = useState(iDagStr())
 
   const åpenSyklus = sykluser.find(s => !s.end_date) ?? null
 
@@ -39,8 +48,12 @@ export default function SyklusPage() {
     setLaster(false)
   }
 
-  async function startMenstruasjon() {
+  async function registrerMenstruasjon() {
     setFeil(null)
+    if (!pågår && sluttDato && sluttDato < startDato) {
+      setFeil('Sluttdato kan ikke være før startdato.')
+      return
+    }
     setLagrer(true)
     const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
@@ -48,11 +61,37 @@ export default function SyklusPage() {
 
     const { error } = await supabase.schema('mens').from('cycles').insert({
       user_id: user.id,
-      start_date: valgtDato,
+      start_date: startDato,
+      end_date: pågår ? null : (sluttDato || null),
     })
 
     if (error) { setFeil(error.message); setLagrer(false); return }
     await hentSykluser()
+    setStartDato(iDagStr())
+    setSluttDato('')
+    setPågår(true)
+    setLagrer(false)
+  }
+
+  async function avsluttMenstruasjon() {
+    if (!åpenSyklus) return
+    if (avsluttDato < åpenSyklus.start_date) {
+      setFeil('Sluttdato kan ikke være før startdato.')
+      return
+    }
+    setFeil(null)
+    setLagrer(true)
+    const supabase = createClient()
+
+    const { error } = await supabase
+      .schema('mens')
+      .from('cycles')
+      .update({ end_date: avsluttDato })
+      .eq('id', åpenSyklus.id)
+
+    if (error) { setFeil(error.message); setLagrer(false); return }
+    await hentSykluser()
+    setAvsluttDato(iDagStr())
     setLagrer(false)
   }
 
@@ -66,37 +105,33 @@ export default function SyklusPage() {
     setSletter(null)
   }
 
-  async function avsluttMenstruasjon() {
-    if (!åpenSyklus) return
-    setFeil(null)
-    setLagrer(true)
-    const supabase = createClient()
-    const iDag = new Date().toISOString().split('T')[0]
-
-    const { error } = await supabase
-      .schema('mens')
-      .from('cycles')
-      .update({ end_date: iDag })
-      .eq('id', åpenSyklus.id)
-
-    if (error) { setFeil(error.message); setLagrer(false); return }
-    await hentSykluser()
-    setLagrer(false)
-  }
-
   return (
     <div className="space-y-12">
-      {/* Actions */}
-      <section className="bg-surface-container-low border border-outline-variant/10 rounded-xl p-5 sm:p-6">
-        {åpenSyklus ? (
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <p className="text-xs font-bold uppercase tracking-widest text-primary">Menstruasjon pågår</p>
+      {/* Active cycle */}
+      {åpenSyklus && (
+        <section className="bg-surface-container-low border border-outline-variant/10 rounded-xl p-5 sm:p-6">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <p className="text-xs font-bold uppercase tracking-widest text-primary">Menstruasjon pågår</p>
+          </div>
+          <p className="text-base text-on-surface-variant mb-6">
+            Startet {formaterDato(åpenSyklus.start_date)}
+          </p>
+
+          <div className="space-y-4">
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1">
+                Når sluttet blødningen?
+              </label>
+              <input
+                type="date"
+                value={avsluttDato}
+                min={åpenSyklus.start_date}
+                max={iDagStr()}
+                onChange={e => setAvsluttDato(e.target.value)}
+                className="bg-transparent border-b border-outline-variant focus:border-primary px-0 py-2 text-base focus:outline-none transition-colors"
+              />
             </div>
-            <p className="text-base text-on-surface-variant mb-6">
-              Startet {formaterDato(åpenSyklus.start_date)}
-            </p>
             <button
               onClick={avsluttMenstruasjon}
               disabled={lagrer}
@@ -105,29 +140,72 @@ export default function SyklusPage() {
               {lagrer ? 'Lagrer…' : 'Avslutt menstruasjon'}
             </button>
           </div>
-        ) : (
-          <div className="space-y-4">
-            <p className="text-base text-on-surface">Når startet siste menstruasjon?</p>
+
+          {feil && <p className="text-error text-sm mt-3">{feil}</p>}
+        </section>
+      )}
+
+      {/* Log new / historical */}
+      <section className="bg-surface-container-low border border-outline-variant/10 rounded-xl p-5 sm:p-6">
+        <p className="text-base font-medium text-on-surface mb-5">
+          {åpenSyklus ? 'Legg til tidligere menstruasjon' : 'Registrer menstruasjon'}
+        </p>
+
+        <div className="space-y-4">
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1">
+              Startdato
+            </label>
+            <input
+              type="date"
+              value={startDato}
+              max={iDagStr()}
+              onChange={e => setStartDato(e.target.value)}
+              className="bg-transparent border-b border-outline-variant focus:border-primary px-0 py-2 text-base focus:outline-none transition-colors"
+            />
+          </div>
+
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              role="switch"
+              aria-checked={pågår}
+              onClick={() => setPågår(p => !p)}
+              className={`relative w-10 h-6 rounded-full transition-colors ${pågår ? 'bg-primary' : 'bg-outline-variant'}`}
+            >
+              <span
+                className={`absolute top-1 w-4 h-4 rounded-full bg-surface shadow transition-transform ${pågår ? 'translate-x-5' : 'translate-x-1'}`}
+              />
+            </button>
+            <span className="text-sm text-on-surface-variant">Pågår fortsatt</span>
+          </div>
+
+          {!pågår && (
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1">Dato</label>
+              <label className="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1">
+                Sluttdato
+              </label>
               <input
                 type="date"
-                value={valgtDato}
-                max={new Date().toISOString().split('T')[0]}
-                onChange={e => setValgtDato(e.target.value)}
+                value={sluttDato}
+                min={startDato}
+                max={iDagStr()}
+                onChange={e => setSluttDato(e.target.value)}
                 className="bg-transparent border-b border-outline-variant focus:border-primary px-0 py-2 text-base focus:outline-none transition-colors"
               />
             </div>
-            <button
-              onClick={startMenstruasjon}
-              disabled={lagrer}
-              className="bg-on-surface text-surface text-sm font-medium px-5 py-2.5 rounded hover:bg-inverse-surface disabled:opacity-50 transition-colors"
-            >
-              {lagrer ? 'Lagrer…' : 'Registrer'}
-            </button>
-          </div>
-        )}
-        {feil && <p className="text-error text-sm mt-3">{feil}</p>}
+          )}
+
+          <button
+            onClick={registrerMenstruasjon}
+            disabled={lagrer}
+            className="bg-on-surface text-surface text-sm font-medium px-5 py-2.5 rounded hover:bg-inverse-surface disabled:opacity-50 transition-colors"
+          >
+            {lagrer ? 'Lagrer…' : 'Registrer'}
+          </button>
+        </div>
+
+        {!åpenSyklus && feil && <p className="text-error text-sm mt-3">{feil}</p>}
       </section>
 
       {/* Divider */}

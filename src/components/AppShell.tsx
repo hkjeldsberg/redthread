@@ -3,6 +3,7 @@
 import { createContext, useContext, useState } from 'react'
 
 export interface SliderConfig {
+  cycleId: string
   startDate: string
   cycleLength: number
   periodLength: number
