@@ -34,12 +34,12 @@ export default function InnloggingPage() {
     <div className="min-h-screen flex items-center justify-center px-6 bg-background relative overflow-hidden">
       <div className="thread-bg absolute top-0 right-0 w-32 h-screen pointer-events-none" />
       <div className="w-full max-w-sm relative">
-        <p className="text-xs font-bold text-primary/60 tracking-widest uppercase mb-2">Rød tråd</p>
+        <p className="text-base font-bold text-primary/60 tracking-widest uppercase mb-2">Rød tråd</p>
         <h1 className="text-3xl font-semibold tracking-tight text-on-surface mb-10">Logg inn</h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1">E-post</label>
+            <label className="block text-base font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1">E-post</label>
             <input
               type="email"
               value={email}
@@ -49,7 +49,7 @@ export default function InnloggingPage() {
             />
           </div>
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1">Passord</label>
+            <label className="block text-base font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1">Passord</label>
             <input
               type="password"
               value={passord}
@@ -59,18 +59,18 @@ export default function InnloggingPage() {
             />
           </div>
 
-          {feil && <p className="text-error text-sm">{feil}</p>}
+          {feil && <p className="text-error text-base">{feil}</p>}
 
           <button
             type="submit"
             disabled={laster}
-            className="w-full bg-on-surface text-surface rounded text-sm font-medium px-4 py-3 hover:bg-inverse-surface disabled:opacity-50 transition-colors"
+            className="w-full bg-on-surface text-surface rounded text-base font-medium px-4 py-3 hover:bg-inverse-surface disabled:opacity-50 transition-colors"
           >
             {laster ? 'Logger inn…' : 'Logg inn'}
           </button>
         </form>
 
-        <p className="text-sm text-on-surface-variant mt-8 text-center">
+        <p className="text-base text-on-surface-variant mt-8 text-center">
           Ingen konto?{' '}
           <Link href="/registrer" className="text-primary underline underline-offset-2">
             Registrer deg

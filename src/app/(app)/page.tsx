@@ -41,7 +41,7 @@ export default async function DashboardPage() {
         </p>
         <Link
           href="/syklus"
-          className="inline-block bg-on-surface text-surface text-sm px-6 py-3 rounded font-medium hover:bg-inverse-surface transition-colors"
+          className="inline-block bg-on-surface text-surface text-base px-6 py-3 rounded font-medium hover:bg-inverse-surface transition-colors"
         >
           Registrer syklus
         </Link>

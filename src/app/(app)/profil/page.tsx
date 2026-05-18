@@ -101,10 +101,10 @@ export default function ProfilPage() {
     setLagrer(false)
   }
 
-  if (laster) return <p className="text-sm text-on-surface-variant/60">Laster…</p>
+  if (laster) return <p className="text-base text-on-surface-variant/60">Laster…</p>
 
   const inputCls = 'w-full bg-transparent border-b border-outline-variant focus:border-primary px-0 py-2 text-base focus:outline-none transition-colors'
-  const labelCls = 'block text-xs font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1'
+  const labelCls = 'block text-base font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1'
 
   return (
     <div className="space-y-12">
@@ -171,13 +171,13 @@ export default function ProfilPage() {
             />
           </div>
 
-          {feil && <p className="text-error text-sm">{feil}</p>}
-          {lagret && <p className="text-primary text-sm">Lagret.</p>}
+          {feil && <p className="text-error text-base">{feil}</p>}
+          {lagret && <p className="text-primary text-base">Lagret.</p>}
 
           <button
             type="submit"
             disabled={lagrer}
-            className="bg-on-surface text-surface text-sm font-medium px-5 py-2.5 rounded hover:bg-inverse-surface disabled:opacity-50 transition-colors"
+            className="bg-on-surface text-surface text-base font-medium px-5 py-2.5 rounded hover:bg-inverse-surface disabled:opacity-50 transition-colors"
           >
             {lagrer ? 'Lagrer…' : 'Lagre'}
           </button>
@@ -187,7 +187,7 @@ export default function ProfilPage() {
       {/* Divider */}
       <div className="flex items-center gap-4">
         <div className="red-thread-line flex-grow" />
-        <span className="text-xs font-bold text-primary/60 tracking-widest uppercase">Kilder</span>
+        <span className="text-base font-bold text-primary/60 tracking-widest uppercase">Kilder</span>
         <div className="red-thread-line w-12" />
       </div>
 
@@ -195,7 +195,7 @@ export default function ProfilPage() {
       <div className="space-y-4">
         {ressurser.map(gruppe => (
           <article key={gruppe.kategori} className="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-5 sm:p-6">
-            <p className="text-xs font-bold text-on-surface-variant/60 tracking-widest uppercase mb-3">
+            <p className="text-base font-bold text-on-surface-variant/60 tracking-widest uppercase mb-3">
               {gruppe.kategori}
             </p>
             <ul className="space-y-2">

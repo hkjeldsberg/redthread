@@ -1,6 +1,7 @@
 # IN PROGRESS
 
 # COMPLETED
+- Fetch this design file, read its readme, and implement the relevant aspects of the design for the existing app. https://api.anthropic.com/v1/design/h/-WXs4cnvxCJbodv88NzC-Q?open_file=R%C3%B8d+tr%C3%A5d+-+Kombi+B%2BC.html
 - The range input is kind of jittery - i think it is caued by the "i dag" button appearing and disappearing. Can you fix this. Also make the slider button larger / more responsive to finger presses on phone 
 - Add a "detailed mode" where the user can see more info and more details or reasoning behind the recommendations.
 - Can you access the book "Hele deg - veien til bedre helse" by Annette Dragland or other data from Annette Dragland online and use this to improve the sources and recommendations? Make also a summary in chat to me what you found

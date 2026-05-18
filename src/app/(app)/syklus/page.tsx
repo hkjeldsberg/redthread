@@ -112,7 +112,7 @@ export default function SyklusPage() {
         <section className="bg-surface-container-low border border-outline-variant/10 rounded-xl p-5 sm:p-6">
           <div className="flex items-center gap-2 mb-2">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <p className="text-xs font-bold uppercase tracking-widest text-primary">Menstruasjon pågår</p>
+            <p className="text-base font-bold uppercase tracking-widest text-primary">Menstruasjon pågår</p>
           </div>
           <p className="text-base text-on-surface-variant mb-6">
             Startet {formaterDato(åpenSyklus.start_date)}
@@ -120,7 +120,7 @@ export default function SyklusPage() {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1">
+              <label className="block text-base font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1">
                 Når sluttet blødningen?
               </label>
               <input
@@ -135,13 +135,13 @@ export default function SyklusPage() {
             <button
               onClick={avsluttMenstruasjon}
               disabled={lagrer}
-              className="bg-on-surface text-surface text-sm font-medium px-5 py-2.5 rounded hover:bg-inverse-surface disabled:opacity-50 transition-colors"
+              className="bg-on-surface text-surface text-base font-medium px-5 py-2.5 rounded hover:bg-inverse-surface disabled:opacity-50 transition-colors"
             >
               {lagrer ? 'Lagrer…' : 'Avslutt menstruasjon'}
             </button>
           </div>
 
-          {feil && <p className="text-error text-sm mt-3">{feil}</p>}
+          {feil && <p className="text-error text-base mt-3">{feil}</p>}
         </section>
       )}
 
@@ -153,7 +153,7 @@ export default function SyklusPage() {
 
         <div className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1">
+            <label className="block text-base font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1">
               Startdato
             </label>
             <input
@@ -177,12 +177,12 @@ export default function SyklusPage() {
                 className={`absolute top-1 w-4 h-4 rounded-full bg-surface shadow transition-transform ${pågår ? 'translate-x-5' : 'translate-x-1'}`}
               />
             </button>
-            <span className="text-sm text-on-surface-variant">Pågår fortsatt</span>
+            <span className="text-base text-on-surface-variant">Pågår fortsatt</span>
           </div>
 
           {!pågår && (
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1">
+              <label className="block text-base font-semibold uppercase tracking-widest text-on-surface-variant/70 mb-1">
                 Sluttdato
               </label>
               <input
@@ -199,28 +199,28 @@ export default function SyklusPage() {
           <button
             onClick={registrerMenstruasjon}
             disabled={lagrer}
-            className="bg-on-surface text-surface text-sm font-medium px-5 py-2.5 rounded hover:bg-inverse-surface disabled:opacity-50 transition-colors"
+            className="bg-on-surface text-surface text-base font-medium px-5 py-2.5 rounded hover:bg-inverse-surface disabled:opacity-50 transition-colors"
           >
             {lagrer ? 'Lagrer…' : 'Registrer'}
           </button>
         </div>
 
-        {!åpenSyklus && feil && <p className="text-error text-sm mt-3">{feil}</p>}
+        {!åpenSyklus && feil && <p className="text-error text-base mt-3">{feil}</p>}
       </section>
 
       {/* Divider */}
       <div className="flex items-center gap-4">
         <div className="red-thread-line flex-grow" />
-        <span className="text-xs font-bold text-primary/60 tracking-widest uppercase">Historikk</span>
+        <span className="text-base font-bold text-primary/60 tracking-widest uppercase">Historikk</span>
         <div className="red-thread-line w-12" />
       </div>
 
       {/* History */}
       <div>
         {laster ? (
-          <p className="text-sm text-on-surface-variant/60">Laster…</p>
+          <p className="text-base text-on-surface-variant/60">Laster…</p>
         ) : sykluser.length === 0 ? (
-          <p className="text-sm text-on-surface-variant/60">Ingen sykluser registrert ennå.</p>
+          <p className="text-base text-on-surface-variant/60">Ingen sykluser registrert ennå.</p>
         ) : (
           <div className="space-y-3">
             {sykluser.map(s => (
@@ -231,12 +231,12 @@ export default function SyklusPage() {
                 <div>
                   <p className="text-base font-medium text-on-surface">{formaterDato(s.start_date)}</p>
                   {s.end_date && (
-                    <p className="text-xs text-on-surface-variant/60 mt-0.5">til {formaterDato(s.end_date)}</p>
+                    <p className="text-base text-on-surface-variant/60 mt-0.5">til {formaterDato(s.end_date)}</p>
                   )}
                 </div>
                 <div className="flex items-center gap-4">
                   <span
-                    className={`text-xs font-semibold px-3 py-1 rounded-full ${
+                    className={`text-base font-semibold px-3 py-1 rounded-full ${
                       !s.end_date ? 'bg-primary/10 text-primary' : 'bg-surface-container-high text-on-surface-variant'
                     }`}
                   >

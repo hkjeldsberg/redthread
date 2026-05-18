@@ -17,6 +17,8 @@ interface AppCtx {
   setPreviewDay: (d: number) => void
   slider: SliderConfig | null
   setSlider: (s: SliderConfig | null) => void
+  sheetOpen: boolean
+  setSheetOpen: (v: boolean) => void
 }
 
 const Ctx = createContext<AppCtx | null>(null)
@@ -31,6 +33,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [detaljer, setDetaljer] = useState(false)
   const [previewDay, setPreviewDay] = useState(1)
   const [slider, setSlider] = useState<SliderConfig | null>(null)
+  const [sheetOpen, setSheetOpen] = useState(false)
 
   return (
     <Ctx.Provider
@@ -41,6 +44,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         setPreviewDay,
         slider,
         setSlider,
+        sheetOpen,
+        setSheetOpen,
       }}
     >
       {children}

@@ -34,26 +34,26 @@ export function averageCycleLength(startDatesDesc: string[]): number | null {
 export const phaseInfo: Record<Phase, { label: string; color: string; bg: string; description: string }> = {
   menstruasjon: {
     label: 'Menstruasjon',
-    color: 'text-red-600',
-    bg: 'bg-red-50',
+    color: 'text-primary',
+    bg: 'bg-primary-container',
     description: 'Kroppen kvitter seg med livmorslimhinnen. Østrogen og progesteron er lave.',
   },
   'follikulær': {
     label: 'Follikulær fase',
-    color: 'text-amber-600',
-    bg: 'bg-amber-50',
+    color: 'text-[#c08040]',
+    bg: 'bg-[#f6e6d8]',
     description: 'Østrogen stiger og forbereder kroppen for eggløsning. Energinivået øker gradvis.',
   },
   eggløsning: {
     label: 'Eggløsning',
-    color: 'text-green-600',
-    bg: 'bg-green-50',
+    color: 'text-[#8a6db0]',
+    bg: 'bg-[#d8c8e8]',
     description: 'LH-topp utløser eggløsning. Østrogen er på sitt høyeste — energi og styrke er optimal.',
   },
   luteal: {
     label: 'Lutealfase',
-    color: 'text-purple-600',
-    bg: 'bg-purple-50',
+    color: 'text-[#7a5c6a]',
+    bg: 'bg-[#fde8e0]',
     description: 'Progesteron stiger. Kroppstemperaturen øker. Kroppen forbereder seg på menstruasjon.',
   },
 }

@@ -138,7 +138,7 @@ export default function SymptomSheet({ open, onClose, cycleId, cycleDay }: Props
             <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
               <div>
                 <h3 className="text-base font-semibold text-on-surface">Symptomer</h3>
-                <p className="text-xs text-on-surface-variant/60">Dag {cycleDay}</p>
+                <p className="text-base text-on-surface-variant/60">Dag {cycleDay}</p>
               </div>
               <button
                 onClick={onClose}
@@ -160,7 +160,7 @@ export default function SymptomSheet({ open, onClose, cycleId, cycleDay }: Props
                     <button
                       key={chip}
                       onClick={() => toggle(chip)}
-                      className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all border ${
+                      className={`px-3 py-1.5 rounded-full text-base font-medium transition-all border ${
                         isActive
                           ? 'bg-primary text-on-primary border-primary shadow-sm'
                           : 'bg-transparent text-on-surface border-outline-variant hover:border-primary/60'
@@ -173,7 +173,7 @@ export default function SymptomSheet({ open, onClose, cycleId, cycleDay }: Props
               </div>
 
               <div className="mt-6 pt-5 border-t border-outline-variant/20">
-                <p className="text-xs font-semibold uppercase tracking-widest text-on-surface-variant/60 mb-3">
+                <p className="text-base font-semibold uppercase tracking-widest text-on-surface-variant/60 mb-3">
                   Legg til eget symptom
                 </p>
                 <div className="flex gap-2">
@@ -184,18 +184,18 @@ export default function SymptomSheet({ open, onClose, cycleId, cycleDay }: Props
                     onChange={e => setInput(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && addCustom()}
                     placeholder="F.eks. tørr hud…"
-                    className="flex-1 bg-surface-container-low border border-outline-variant rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary transition-colors placeholder:text-on-surface-variant/40"
+                    className="flex-1 bg-surface-container-low border border-outline-variant rounded-lg px-3 py-2 text-base focus:outline-none focus:border-primary transition-colors placeholder:text-on-surface-variant/40"
                   />
                   <button
                     onClick={addCustom}
                     disabled={!input.trim()}
-                    className="bg-primary text-on-primary text-sm font-medium px-4 py-2 rounded-lg disabled:opacity-40 transition-opacity"
+                    className="bg-primary text-on-primary text-base font-medium px-4 py-2 rounded-lg disabled:opacity-40 transition-opacity"
                   >
                     Legg til
                   </button>
                 </div>
                 {customPool.length > 0 && (
-                  <p className="text-xs text-on-surface-variant/50 mt-2">
+                  <p className="text-base text-on-surface-variant/50 mt-2">
                     Egne symptomer vises med stiplet kant.
                   </p>
                 )}

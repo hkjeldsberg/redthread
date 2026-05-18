@@ -1,14 +1,12 @@
 'use client'
 
-import { useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { getPhase, phaseInfo } from '@/lib/cycle'
 import { useApp } from './AppShell'
 import SymptomSheet from './SymptomSheet'
 
 export default function StickySlider() {
-  const { slider, previewDay, setPreviewDay } = useApp()
-  const [sheetOpen, setSheetOpen] = useState(false)
+  const { slider, previewDay, setPreviewDay, sheetOpen, setSheetOpen } = useApp()
 
   return (
     <>
@@ -71,7 +69,7 @@ function Inner({
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3 sm:gap-4">
       <div className="hidden sm:flex items-center gap-2 shrink-0 w-36">
         <span className="w-2 h-2 rounded-full bg-primary shrink-0" />
-        <span className={`text-sm font-semibold ${info.color} tracking-tight`}>{info.label}</span>
+        <span className={`text-base font-semibold ${info.color} tracking-tight`}>{info.label}</span>
       </div>
       <span className="sm:hidden w-2 h-2 rounded-full bg-primary shrink-0" />
 
@@ -100,14 +98,14 @@ function Inner({
       </div>
 
       <div className="flex items-center gap-2 shrink-0">
-        <span className="text-sm font-semibold text-on-surface tabular-nums">
+        <span className="text-base font-semibold text-on-surface tabular-nums">
           <span className="hidden sm:inline">Dag </span>{previewDay}
         </span>
-        <span className="text-xs text-on-surface-variant/60 tabular-nums">/ {cycleLength}</span>
+        <span className="text-base text-on-surface-variant/60 tabular-nums">/ {cycleLength}</span>
         <button
           onClick={() => setPreviewDay(clampedActual)}
           aria-hidden={isToday}
-          className={`ml-1 text-xs text-primary hover:text-primary-container underline underline-offset-2 transition-opacity duration-150 ${isToday ? 'invisible pointer-events-none' : 'visible'}`}
+          className={`ml-1 text-base text-primary hover:text-primary-container underline underline-offset-2 transition-opacity duration-150 ${isToday ? 'invisible pointer-events-none' : 'visible'}`}
         >
           I dag
         </button>
@@ -118,7 +116,7 @@ function Inner({
         onClick={onOpenSymptoms}
         aria-label="Logg symptomer for denne dagen"
         title="Logg symptomer"
-        className="shrink-0 flex items-center gap-1.5 text-xs font-medium text-on-surface-variant hover:text-on-surface border border-outline-variant/50 hover:border-outline-variant rounded-full px-2.5 py-1 transition-colors"
+        className="shrink-0 flex items-center gap-1.5 text-base font-medium text-on-surface-variant hover:text-on-surface border border-outline-variant/50 hover:border-outline-variant rounded-full px-2.5 py-1 transition-colors"
       >
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
           <path d="M12 5v14M5 12h14" />

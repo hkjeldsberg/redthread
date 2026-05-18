@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { AnimatePresence, motion } from 'motion/react'
 import { createClient } from '@/lib/supabase/client'
@@ -20,9 +20,19 @@ export default function Nav() {
   const { detaljer, toggleDetaljer } = useApp()
   const showToggle = pathname === '/'
   const [menyApen, setMenyApen] = useState(false)
+  const headerRef = useRef<HTMLElement>(null)
 
-  // Close mobile menu when route changes
   useEffect(() => setMenyApen(false), [pathname])
+
+  useEffect(() => {
+    const el = headerRef.current
+    if (!el) return
+    const obs = new ResizeObserver(() => {
+      document.documentElement.style.setProperty('--header-h', `${el.offsetHeight}px`)
+    })
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
 
   async function loggUt() {
     setMenyApen(false)
@@ -33,9 +43,9 @@ export default function Nav() {
   }
 
   return (
-    <header className="fixed top-0 left-0 w-full z-40 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/20">
+    <header ref={headerRef} className="fixed top-0 left-0 w-full z-40 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/20">
       <div className="flex justify-between items-center w-full max-w-6xl mx-auto px-4 sm:px-6 py-3 gap-3">
-        <Link href="/" className="text-primary font-medium tracking-tight shrink-0">
+        <Link href="/" className="text-primary tracking-tight shrink-0 text-2xl" style={{ fontFamily: 'var(--font-caveat), cursive', fontWeight: 600 }}>
           Rød tråd
         </Link>
 
@@ -47,7 +57,7 @@ export default function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className={`relative px-4 py-1.5 text-sm font-medium tracking-wide transition-colors ${
+                className={`relative px-4 py-1.5 text-base font-medium tracking-wide transition-colors ${
                   active ? 'text-primary' : 'text-on-surface-variant hover:text-primary'
                 }`}
               >
@@ -76,7 +86,7 @@ export default function Nav() {
                 whileTap={{ scale: 0.96 }}
                 title={detaljer ? 'Skjul detaljer' : 'Vis detaljer'}
                 aria-pressed={detaljer}
-                className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${
+                className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-base font-medium border transition-colors ${
                   detaljer
                     ? 'bg-primary text-on-primary border-primary shadow-sm'
                     : 'bg-surface text-primary border-primary/40 hover:bg-primary/10'

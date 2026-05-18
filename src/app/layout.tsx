@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Caveat, DM_Sans } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans', display: 'swap' })
+const caveat = Caveat({ subsets: ['latin'], variable: '--font-caveat', display: 'swap' })
 
 export const metadata: Metadata = {
   title: 'Rød tråd',
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="no" className={`${inter.variable} h-full`}>
+    <html lang="no" className={`${dmSans.variable} ${caveat.variable} h-full`}>
       <body className="min-h-full bg-background text-on-surface antialiased">{children}</body>
     </html>
   )
