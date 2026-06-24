@@ -8,9 +8,6 @@ const caveat = Caveat({ subsets: ['latin'], variable: '--font-caveat', display: 
 export const metadata: Metadata = {
   title: 'Rød tråd',
   description: 'Følg menstruasjonssyklusen din',
-  icons: {
-    icon: 'https://img.icons8.com/?size=160&id=hS9AgNEWwXmL&format=png',
-  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
